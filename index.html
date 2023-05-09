@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>GIF Editor</title>
+
+	<link rel="stylesheet" href="styles/style.css">
+	<link rel="stylesheet" href="styles/nav.css">
+	<link rel="stylesheet" href="styles/app.css">
+	<link rel="stylesheet" href="styles/form.css">
+
+	<script src="scripts/nav.js" defer></script>
+	<script src="scripts/form.js" defer></script>
+
+	<script src="scripts/gif/color.js" type="module"></script>
+	<script src="scripts/gif/resize.js" type="module"></script>
+	<script src="scripts/gif/info.js" type="module"></script>
+	<script src="scripts/gif/crop.js" type="module"></script>
+	<script src="scripts/gif/frames.js" type="module"></script>
+	<script src="scripts/gif/compress.js" type="module"></script>
+	<script src="scripts/gif/histogram.js" type="module"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<div></div>
+
+<body>
+	<div class="nav_container">
+		<nav class="center">
+			<button class="btn nav_btn active_btn" data-app="home">
+				<h1>GIF Editor</h1>
+			</button>
+			<div id="nav_btns" class="disabled_btns btn_group">
+				<button class="btn nav_btn" data-app="color">Color</button>
+				<button class="btn nav_btn" data-app="resize">Resize</button>
+				<button class="btn nav_btn" data-app="crop" id="crop_btn">Crop</button>
+				<button class="btn nav_btn" data-app="compress">Compress</button>
+				<button class="btn nav_btn" data-app="frames">Export frames</button>
+				<button class="btn nav_btn" data-app="histogram">Histogram</button>
+				<button class="btn nav_btn" data-app="info" id="info_btn">Info</button>
+			</div>
+		</nav>
+	</div>
+	<main class="center">
+		<div id="app_home" class="app active_app">
+			<p class="title">Welcome to GIF Editor!</p>
+
+			<div id="drop_zone" class="col">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="icon">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+				</svg>
+				<div class="upload_container col">
+					<h2 class="drop_title">Drag & Drop files here</h2>
+					<p class="text_small">or</p>
+					<label class="btn upload_btn" for="file_input">Upload</label>
+					<input type="file" id="file_input" accept="image/gif" required>
+				</div>
+				<p id="message"></p>
+			</div>
+
+			<div class="img_wrapper">
+				<img id="preview_img" class="img">
+			</div>
+		</div>
+
+		</div>
+
+		<div id="app_color" class="app">
+			<div class="btn_group">
+				<button id="grayscale" class="btn default_btn">Grayscale</button>
+				<button id="threshold" class="btn default_btn">Threshold</button>
+			</div>
+
+			<div class="img_wrapper">
+				<img class="result_gif" id="result_color">
+			</div>
+
+			<div id="done_area_color" class="done_area">
+				<a id="download_btn_color" class="btn default_btn" target="_blank">Download result</a>
+				<p>Done in: <span id="time_color"></span>ms</p>
+			</div>
+		</div>
+
+		<div id="app_resize" class="app">
+			<form id="resize_form">
+				<label>
+					Width:
+					<input name="w" type="number" value="128" required>
+				</label>
+				<label>
+					Height:
+					<input name="h" type="number" value="128" required>
+				</label>
+				<button class="btn default_btn" type="submit">Resize</button>
+			</form>
+
+			<div class="img_wrapper">
+				<img class="result_gif" id="result_resize">
+			</div>
+
+			<div id="done_area_resize" class="done_area">
+				<a id="download_btn_resize" class="btn default_btn" target="_blank">Download result</a>
+				<p>Done in: <span id="time_resize"></span>ms</p>
+			</div>
+		</div>
+
+		<div id="app_crop" class="app">
+			<div class="btn_group">
+				<button id="crop" class="btn default_btn">Crop</button>
+				<button id="center_snap" class="btn default_btn">Snap to center</button>
+				<select id="aspect_ratio" class="btn default_btn" required>
+					<option disabled selected hidden>Aspect ratio:</option>
+					<option value="0:0">Custom</option>
+					<option value="1:1">Square (1:1)</option>
+					<option value="16:9">Landscape (16:9)</option>
+					<option value="9:16">Portrait (9:16)</option>
+					<option value="17:6">Discord banner (17:6)</option>
+				</select>
+			</div>
+
+			<div class="img_wrapper">
+				<canvas id="crop_canvas">Crop Canvas</canvas>
+				<img id="preview_crop" class="img">
+			</div>
+
+			<div class="img_wrapper">
+				<img class="result_gif" id="result_crop">
+			</div>
+
+			<div id="done_area_crop" class="done_area">
+				<a id="download_btn_crop" class="btn default_btn" target="_blank">Download result</a>
+				<p>Done in: <span id="time_crop"></span>ms</p>
+			</div>
+		</div>
+
+		<div id="app_compress" class="app">
+			<form id="compress_form" class="btn_group">
+				<select name="compression_lvl" class="btn default_btn" required>
+					<option value="low">Low compression</option>
+					<option value="medium">Medium compression</option>
+					<option value="high">High compression</option>
+				</select>
+				<label style="text-align: center;">
+					Amount (lossy):
+					<input name="amount" type="number" value="20" required>
+				</label>
+				<button class="btn default_btn" type="submit">Compress</button>
+			</form>
+
+			<div class="img_wrapper">
+				<img class="result_gif" id="result_compress">
+			</div>
+
+			<div id="done_area_compress" class="done_area">
+				<a id="download_btn_compress" class="btn default_btn" target="_blank">Download result</a>
+				<p>Done in: <span id="time_compress"></span>ms <span id="output_compress_tmp"></span></p>
+			</div>
+		</div>
+
+		<div id="app_frames" class="app">
+			<button id="export_frames" class="btn default_btn">Export frames</button>
+
+			<div class="img_wrapper" id="result_frames"></div>
+
+			<div id="done_area_frames" class="done_area">
+				<!-- <a id="download_btn_color" class="btn default_btn" target="_blank">Download ZIP</a> -->
+				<p>Done in: <span id="time_frames"></span>ms</p>
+			</div>
+		</div>
+
+		<div id="app_histogram" class="app">
+			<div class="img_wrapper">
+				<canvas id="progress_frame">Histogram Canvas</canvas>
+			</div>
+
+			<input type="range" min="0" value="0" id="frame_range">
+
+			<canvas id="histogram_canvas">Histogram Canvas</canvas>
+		</div>
+
+		<div id="app_info" class="app">
+			<button id="display_info" class="btn default_btn">Show info</button>
+
+			<p class="title">GIF info</p>
+			<div class="text_mono" id="result_info"></div>
+		</div>
+	</main>
+</body>
+
+</html>

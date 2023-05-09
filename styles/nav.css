@@ -1,0 +1,62 @@
+.nav_container {
+	width: 100%;
+
+	display: flex;
+	justify-content: center;
+
+	background-color: hsla(0, 0%, 20%, 0.75);
+	border-bottom: 2px solid #aaa;
+	top: 0;
+	position: sticky;
+}
+
+.center {
+	width: 100%;
+	max-width: 1024px;
+}
+
+nav {
+	display: flex;
+	align-items: center;
+}
+
+#nav_btns {
+	height: 100%;
+	overflow: auto;
+}
+
+.nav_btn {
+	padding: 1rem;
+	height: 100%;
+}
+
+.nav_btn:hover {
+	background-color: #444;
+}
+
+.active_btn {
+	cursor: default;
+	background-color: #aaa !important;
+	color: #000;
+}
+
+.app {
+	display: none;
+	height: 100%;
+}
+
+.active_app {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+main {
+	padding: 1rem;
+	height: 100%;
+}
+
+.disabled_btns {
+	pointer-events: none;
+	opacity: .2;
+}

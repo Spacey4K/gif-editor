@@ -1,0 +1,62 @@
+.icon {
+	width: 4rem;
+	height: 4rem;
+
+	margin-bottom: 1rem;
+}
+
+.upload_btn {
+	/* margin: .1rem; */
+	padding: .5rem 1rem;
+	border-radius: 1rem;
+
+	background-color: dodgerblue;
+
+	font-weight: bold;
+	width: 100%;
+}
+
+.upload_container {
+	gap: .5rem;
+}
+
+
+#file_input {
+	display: none;
+}
+
+#drop_zone {
+	padding: 1rem;
+	border-radius: 1rem;
+	border: 2px dashed #555;
+
+	background-color: #333;
+	transition: var(--transition);
+}
+
+#drop_zone:hover,
+.drop_zone_hover {
+	background-color: #444 !important;
+}
+
+.drop_title {
+	text-align: center;
+	font-size: large;
+	font-weight: bold;
+}
+
+#message {
+	display: none;
+	margin-top: 1rem;
+	text-align: center;
+}
+
+.message_error {
+	display: block !important;
+	color: #f67272;
+}
+
+.message_success {
+	display: block !important;
+	color: #6ce16c;
+}
