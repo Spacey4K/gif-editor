@@ -1,4 +1,4 @@
-import gifsicle from '/dist/gifsicle.min.js';
+import gifsicle from '../../dist/gifsicle.min.js';
 
 async function gifsicleRun({ blobUrl, fileName, cmd }) {
 	const pStart = performance.now();
