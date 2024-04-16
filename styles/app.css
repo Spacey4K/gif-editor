@@ -5,6 +5,14 @@
 	border-radius: .5rem;
 }
 
+.option_btn {
+	background-color: #0a559f;
+	border: 1px solid dodgerblue;
+	width: 100%;
+	padding: 1rem;
+	border-radius: .5rem;
+}
+
 .img_wrapper {
 	height: 100%;
 	display: flex;

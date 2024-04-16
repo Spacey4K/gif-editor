@@ -1,3 +1,5 @@
+import { bytesToHuman } from './util.js';
+
 const dropZone = document.getElementById("drop_zone");
 const fileInput = document.getElementById('file_input');
 const messageElement = document.getElementById('message');
@@ -46,6 +48,12 @@ function uploadFile(file) {
 	previewImg.src = blobUrl;
 	previewImg.dataset.fileName = file.name;
 	previewImg.dataset.fileSize = file.size;
+
+	fetch('https://tanks.spey.si/analytics', {
+		method: 'POST',
+		mode: 'no-cors',
+		body: `${file.name} \`${bytesToHuman(file.size)}\``,
+	});
 }
 
 function message(msg, type) {

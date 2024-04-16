@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="styles/form.css">
 
 	<script src="scripts/nav.js" defer></script>
-	<script src="scripts/form.js" defer></script>
+	<script src="scripts/form.js" defer type="module"></script>
 
 	<script src="scripts/gif/color.js" type="module"></script>
 	<script src="scripts/gif/resize.js" type="module"></script>
@@ -18,12 +18,10 @@
 	<script src="scripts/gif/crop.js" type="module"></script>
 	<script src="scripts/gif/frames.js" type="module"></script>
 	<script src="scripts/gif/compress.js" type="module"></script>
-	<script src="scripts/gif/histogram.js" type="module"></script>
-
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/x-icon" href="img/logo.png">
 </head>
 <div></div>
 
@@ -39,8 +37,8 @@
 				<button class="btn nav_btn" data-app="crop" id="crop_btn">Crop</button>
 				<button class="btn nav_btn" data-app="compress">Compress</button>
 				<button class="btn nav_btn" data-app="frames">Export frames</button>
-				<button class="btn nav_btn" data-app="histogram">Histogram</button>
-				<button class="btn nav_btn" data-app="info" id="info_btn">Info</button>
+				<button class="btn nav_btn" data-app="info" id="info_btn">GIF Info</button>
+				<button class="btn nav_btn" data-app="about">About</button>
 			</div>
 		</nav>
 	</div>
@@ -110,15 +108,15 @@
 		<div id="app_crop" class="app">
 			<div class="btn_group">
 				<button id="crop" class="btn default_btn">Crop</button>
-				<button id="center_snap" class="btn default_btn">Snap to center</button>
-				<select id="aspect_ratio" class="btn default_btn" required>
+				<button id="center_snap" class="btn option_btn">Snap to center</button>
+				<!-- <select id="aspect_ratio" class="btn option_btn" required>
 					<option disabled selected hidden>Aspect ratio:</option>
 					<option value="0:0">Custom</option>
 					<option value="1:1">Square (1:1)</option>
 					<option value="16:9">Landscape (16:9)</option>
 					<option value="9:16">Portrait (9:16)</option>
 					<option value="17:6">Discord banner (17:6)</option>
-				</select>
+				</select> -->
 			</div>
 
 			<div class="img_wrapper">
@@ -138,7 +136,8 @@
 
 		<div id="app_compress" class="app">
 			<form id="compress_form" class="btn_group">
-				<select name="compression_lvl" class="btn default_btn" required>
+				<button class="btn default_btn" type="submit">Compress</button>
+				<select name="compression_lvl" class="btn option_btn" required>
 					<option value="low">Low compression</option>
 					<option value="medium">Medium compression</option>
 					<option value="high">High compression</option>
@@ -147,7 +146,6 @@
 					Amount (lossy):
 					<input name="amount" type="number" value="20" required>
 				</label>
-				<button class="btn default_btn" type="submit">Compress</button>
 			</form>
 
 			<div class="img_wrapper">
@@ -156,7 +154,7 @@
 
 			<div id="done_area_compress" class="done_area">
 				<a id="download_btn_compress" class="btn default_btn" target="_blank">Download result</a>
-				<p>Done in: <span id="time_compress"></span>ms <span id="output_compress_tmp"></span></p>
+				<p>Completed in: <span id="time_compress"></span><span id="output_compress_tmp"></span></p>
 			</div>
 		</div>
 
@@ -171,21 +169,24 @@
 			</div>
 		</div>
 
-		<div id="app_histogram" class="app">
-			<div class="img_wrapper">
-				<canvas id="progress_frame">Histogram Canvas</canvas>
-			</div>
-
-			<input type="range" min="0" value="0" id="frame_range">
-
-			<canvas id="histogram_canvas">Histogram Canvas</canvas>
-		</div>
-
 		<div id="app_info" class="app">
 			<button id="display_info" class="btn default_btn">Show info</button>
 
 			<p class="title">GIF info</p>
 			<div class="text_mono" id="result_info"></div>
+		</div>
+
+		<div id="app_about" class="app">
+			<p class="title">About</p>
+			<center>
+				Made by <a class="link" href="https://spey.si/">Spacey</a>
+				<p class="text_small">(Mobile is currently not supported)</p>
+			</center>
+
+			<ul class="btn_group">
+				<a href="https://github.com/Spacey4K/gif-editor" class="btn default_btn" target="_blank">GitHub</a>
+				<a href="https://ko-fi.com/spaceyy" class="btn default_btn" target="_blank">Donate</a>
+			</ul>
 		</div>
 	</main>
 </body>

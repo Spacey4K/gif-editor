@@ -1,4 +1,5 @@
 import { gifsicleRun } from './gifsicle.js';
+import { bytesToHuman } from '../util.js';
 
 const resultGif = document.getElementById('result_compress');
 const downloadBtn = document.getElementById('download_btn_compress');
@@ -11,11 +12,6 @@ const optimize = {
 	medium: 'O2',
 	high: 'O3',
 };
-
-function bytesToHuman(bytes) {
-	const i = bytes == 0 ? 0 : Math.floor(Math.log(bytes) / Math.log(1024));
-	return (bytes / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB'][i];
-}
 
 document.getElementById('compress_form').addEventListener('submit', async (e) => {
 	e.preventDefault();
@@ -39,8 +35,8 @@ document.getElementById('compress_form').addEventListener('submit', async (e) =>
 	downloadBtn.href = resultUrl;
 	downloadBtn.download = fileName;
 
-	timeValue.innerText = time + '\n';
-	output_compress_tmp.innerText = `Reduced from ${bytesToHuman(ogFileSize)} to ${bytesToHuman(results[0].size)}`;
+	timeValue.innerText = time;
+	output_compress_tmp.innerText = `\nReduced from ${bytesToHuman(ogFileSize)} to ${bytesToHuman(results[0].size)}`;
 
 	doneArea.style.display = 'flex';
 });
